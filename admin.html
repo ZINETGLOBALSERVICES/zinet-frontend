@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Protect admin page
+    if (!localStorage.getItem('adminAuth')) {
+      window.location.href = 'admin-login.html';
+    }
+  </script>
+</head>
+<body>
+  <div style="display:flex;">
+    <div class="glass" style="width:250px; min-height:100vh; padding:1rem;">
+      <h3 style="color:#ef4444;">ZiNET Admin</h3>
+      <ul style="list-style:none; margin-top:2rem;">
+        <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('users')">Users</a></li>
+        <li><a href="#" onclick="showSection('clients')">Clients</a></li>
+        <li><a href="#" onclick="showSection('students')">Students</a></li>
+        <li><a href="#" onclick="showSection('content')">Content</a></li>
+        <li><a href="#" onclick="logout()">Logout</a></li>
+      </ul>
+    </div>
+    <div style="flex:1; padding:2rem;">
+      <div id="dashboard"><h2>Analytics Dashboard</h2><p>Total Clients: 124 | Students: 89 | Active Services: 11</p><canvas id="statsChart" width="400" height="200"></canvas></div>
+      <div id="users" style="display:none;"><h2>User Management</h2><p>Admin users list placeholder.</p></div>
+      <div id="clients" style="display:none;"><h2>Client Management</h2><p>Client records will appear here.</p></div>
+      <div id="students" style="display:none;"><h2>Student Management</h2><p>Training registrations data.</p></div>
+      <div id="content" style="display:none;"><h2>Content Management</h2><p>Edit services, blog posts, etc.</p></div>
+    </div>
+  </div>
+  <script>
+    function showSection(section) {
+      ['dashboard','users','clients','students','content'].forEach(sec => {
+        document.getElementById(sec).style.display = 'none';
+      });
+      document.getElementById(section).style.display = 'block';
+    }
+    function logout() {
+      localStorage.removeItem('adminAuth');
+      window.location.href = 'admin-login.html';
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    new Chart(document.getElementById('statsChart'), { type: 'bar', data: { labels: ['Jan','Feb','Mar'], datasets: [{ label: 'Revenue', data: [12000,15000,18000], backgroundColor: '#ef4444' }] } });
+  </script>
+</body>
+</html>
