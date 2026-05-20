@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="display:flex; align-items:center; justify-content:center; min-height:100vh;">
+  <div class="glass" style="padding:2rem; width:350px;">
+    <h2 style="color:#ef4444;">Admin Login</h2>
+    <form id="admin-login-form">
+      <input type="text" id="admin-user" placeholder="Username" required style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+      <input type="password" id="admin-pass" placeholder="Password" required style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none;">
+      <button type="submit" class="btn-primary" style="width:100%;">Login</button>
+    </form>
+    <div id="login-error" style="color:red; margin-top:10px;"></div>
+  </div>
+  <script>
+    document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const user = document.getElementById('admin-user').value;
+      const pass = document.getElementById('admin-pass').value;
+      if (user === 'zinetadmin' && pass === 'ZiNET@2026') {
+        localStorage.setItem('adminAuth', 'true');
+        window.location.href = 'admin.html';
+      } else {
+        document.getElementById('login-error').innerText = 'Invalid credentials';
+      }
+    });
+  </script>
+</body>
+</html>
